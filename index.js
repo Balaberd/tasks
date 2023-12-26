@@ -34,26 +34,23 @@ const obj1 = { here: { is: "on", other: "3" }, object: Z };
 const obj2 = { here: { is: "on", other: "2" }, object: Z };
 
 const deepEqual = (obj1, obj2) => {
-  const arr1 = Object.entries(obj1);
-  const arr2 = Object.entries(obj2);
-
-  if (arr1.length !== arr2.length) return false
-
-  for (let i = 0; i < arr1.length; i++) {
-    const [key1, value1] = arr1[i];
-    const [key2, value2] = arr2[i];
-
-    if (key1 === key2 && value1 === value2) {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  
+  if(keys1.length !== keys2.length) return false
+  
+  for(let i = 0; i < keys1.length; i++) {
+    const key = keys1[i]
+    
+    if(obj1[key] === obj2[key]) {
       continue
-    } else if (Array.isArray(value1)) {
-      // ...
-    } else if (typeof value1 === 'object') {
-      if (deepEqual(value1, value2)) continue
+    } else if(typeof obj1[key] === 'object') {
+      if(deepEqual(obj1[key], obj2[key])) continue
     }
     return false
   }
+  
   return true
-
 };
 
 
